@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>Ejemplos de VUE JS 2</title>	
+	<style type="text/css">
+		.clase1 {
+			background: green;
+			color: white;			
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1> {{texto}} </h1>
+		<h2 v-text="texto"></h2>
+		<hr/>
+		
+		<label>Nombre: </label><input type="text" v-model="nombres"></input>
+		<p>El nombre es: {{nombres}}</p>
+		<hr/>
+
+		<label>Nota: </label><input type="text" v-model="nota"></input>
+		<p v-if="nota && nota>=5">Su nota es {{nota}} y ha sido <strong>¡¡Aprobado!!</strong>
+		<p v-else>Ha sido desaprobado con {{nota}}</p>
+		<hr/>
+
+		<h1>Listado de Peliculas: (array) </h1>
+		<ol>
+			<li v-for="pelicula in peliculas">{{pelicula}}</li>
+		</ol>
+		<hr/>
+
+		<h1>Listado de Frutas: (array de objetos)</h1>
+		<ul>
+			<li v-for="(fruta, index) in frutas">
+			 {{index}}: {{fruta.nombre}} - {{fruta.color}} - {{fruta.precio}}
+			</li>
+		</ul>
+
+		<h1>Listado de elementos de Superfruta: (objeto)</h1>
+		<ul>
+			<li v-for="(value, key, index) in superfruta">
+			 {{index}}: {{key}} - {{value}}
+			</li>
+		</ul>
+		<hr>
+		Haga Clic en una opción: <br>
+		<button v-on:click="agregarPelicula()">Crear Pelicula</button>
+		<button @click="eliminarPelicula()">Eliminar Pelicula</button>
+		<hr>
+
+		<ol>
+			<li v-for="(pelicula, index) in peliculas">{{pelicula}} <button @click="eliminarPelicula(index)"> X </button>
+			</li>
+		</ol>
+		<form @submit.prevent="agregarPelicula()">
+			Ingrese una Pelicula: 
+			<input type="text" v-model="peliculaNueva">
+			<input type="submit" value="Agregar">
+		</form>
+		<hr>
+
+		<h2>{{nombresYapellidos}}</h2>		
+		<h1>Listado de Peliculas Ordenadas</h1>
+		<ol>
+			<li v-for="pelicula in peliculasOrdenadas">{{pelicula}}</li>
+		</ol>
+		<hr/>
+		
+		<h1>Buscando en Frutas</h1>
+		<input type="search" v-model="query" placeholder="Nombre de Fruta">
+		<ol>
+			<li v-for="(fruta, index) in buscarFruta">
+			 {{ fruta.nombre }}
+			</li>
+		</ol>
+		<div>
+			{{query | Mayusculas}}
+		</div>
+		<hr>
+
+		<h1>Binding a una clase</h1>
+		<ol>
+			<li @click="marcar(index)" :class="{clase1: index == confirmado}" v-for="(fruta, index) in buscarFruta">
+			 {{ fruta.nombre }}
+			</li>
+		</ol>
+		<usuarios></usuarios>
+		<frutas :objeto="frutas"></frutas>
+		<hr>
+		<h1>Prueba de Componentes dinamicos</h1>
+		<button @click="elegido='usuarios'">Usuarios</button>
+		<button @click="elegido='padre'">Padre</button>
+		<button @click="elegido='hijo'">Hijo</button>
+		<component :is="elegido"></component>
+
+	</main>
+	<div id='app'>
+		<h2>{{texto}} En un div con id='app'</h2>
+	</div>
+	<div class='appl'>
+		<h2>{{texto}} En un div con class='appl'</h2>
+		<h1>Listado AJAX de valores extraidos de un API REST</h1>
+		<ol v-if="posts">
+			<li v-for="(post, index) in posts">
+			 {{post.title}}
+			</li>
+		</ol>
+		<span v-else>Cargando peticiom AJAX...</span>
+	</div>
+
+	
+
+	<script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
